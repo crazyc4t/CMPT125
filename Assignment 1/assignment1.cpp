@@ -26,7 +26,7 @@ string getUnsignedBinary(int x, int L)
     if (binaryNum.size() > L)
         binaryNum.erase(0, 1);
 
-    cout << "Returning binary number: " << binaryNum << endl;
+    // cout << "Returning binary number: " << binaryNum << endl; testing purposes
     return binaryNum;
 }
 
@@ -61,17 +61,18 @@ string getBinarySum(string A, string B)
     }
     if (carry > 0)
         binarySum = "1" + binarySum;
-    if (binarySum.length() > A.length())
+
+    if (binarySum.length() > A.length()) // Ignore overflow bits
         binarySum.erase(0, 1);
-    cout << "Returning Binary Sum: " << binarySum << endl;
+    // cout << "Returning Binary Sum: " << binarySum << endl; testing purposes
     return binarySum;
 }
 
 string flipBits(string A)
 {
     // Helper function
-    // Pre-condition: A is a non-empty string that stores "1"s and "0"s characters
-    // Post-condition: To return string A binary representation flipped, where's there's 1s replace with 0 and vice-versa
+    // Pre-condition: A is a non-empty string that stores "1"s and "0"s characters in a binary representation
+    // Post-condition: To return string A binary representation flipped, where's there's 1s replace with 0s and vice-versa
     string flippedBinary = "";
     for (int i = A.length() - 1; i >= 0; i--)
     {
@@ -80,12 +81,15 @@ string flipBits(string A)
         else
             flippedBinary = '1' + flippedBinary;
     }
-    cout << "Returning flipped bits: " << flippedBinary << endl;
+    // cout << "Returning flipped bits: " << flippedBinary << endl; testing purposes
     return flippedBinary;
 }
 
 string onePattern(int L)
 {
+    // Helper function
+    // Pre-condition: L is a non-negative bit pattern arrangement
+    // Pro-condition: Returns a string that it's length is L and all numbers are 0 except the last character that is 1.
     string onePattern = "1";
     for (int i = 1; i < L; i++)
     {
@@ -221,11 +225,11 @@ int main()
         }
         else
             break;
-        // system("Pause");
+        // system("Pause"); not needed for GCC Fedora Linux compiler
         cout << endl
              << endl;
     } while (true);
 
-    // system("Pause");
+    // system("Pause"); not needed for GCC Fedora Linux compiler
     return 0;
 }
