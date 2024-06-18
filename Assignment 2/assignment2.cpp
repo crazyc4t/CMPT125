@@ -1,3 +1,6 @@
+// Said Neder
+// NEDSD2302
+// CMPT125 - Yonas T. Weldeselassie
 #include <iostream>
 #include <ctime>
 using namespace std;
@@ -26,7 +29,7 @@ int countChars(const charPointer &s, const char &ch)
     const int length = cstrlen(s);
     for (int i = 0; i <= length; i++)
     {
-        if (s[i] == ch)
+        if (s[i] == ch) // if character at index i is equal to ch, increase count
         {
             count++;
         }
@@ -45,9 +48,9 @@ int findChar(const charPointer &s, const char &ch)
     The function call findChar("racecar", 't') must return -1.
     */
     const int length = cstrlen(s);
-    for (int i = 0; i <= length; i++) // Remember that cstrlen returns the printable chars in s, meaning len - 1
+    for (int i = 0; i < length; i++) // Remember that cstrlen returns the printable chars in s
     {
-        if (s[i] == ch)
+        if (s[i] == ch) // if the character of s at index i is equal to ch, return it's index
         {
             return i;
         }
@@ -65,10 +68,9 @@ charPointer getCopy(const charPointer &s)
     */
     const int length = cstrlen(s) + 1;
     charPointer copy_cstring = new char[length];
-    for (int i = 0; i < length; i++) // Remember that cstrlen returns the printable chars in s, meaning len - 1
+    for (int i = 0; i < length; i++) // Remember that cstrlen returns the printable chars in s
     {
-        copy_cstring[i] = s[i];
-        // cout << "Testing, character copied: " << copy_cstring[i] << endl;
+        copy_cstring[i] = s[i]; // copy every character of s into copy_cstring as the loop moves forward
     }
     return copy_cstring;
 }
@@ -102,20 +104,20 @@ void rotateStringRight(const charPointer &s, const int &r)
 {
     const int length = cstrlen(s);
     charPointer temp_cstring = new char[length + 1]; // create temp empty c-string to copy rotated string
-    int rotation = -1 * r;                           // r will be modified
+    int rotation = -1 * r;                           // r will be modified to positive value
     int shift;                                       // start position to copy
     int j = 0;                                       // useful for indexing in multiple loops
     if (rotation > length)                           // working within bounds
     {
         rotation -= length;
     }
-    shift = length - rotation;
-    for (int i = shift; i < length; i++) // start copying each char starting from the rotation position to the temp cstring
+    shift = length - rotation;           // The start position is the following character to start copying, while the rotation is the last item to be copied, hence shifted right
+    for (int i = shift; i < length; i++) // start copying each char starting from the shift position to the temp cstring
     {
         temp_cstring[j] = s[i];
         j++;
     }
-    for (int i = 0; i < shift; i++) // start copying each char from the start until the rotation position to the temp cstring
+    for (int i = 0; i < shift; i++) // start copying each char from the start until the shift position to the temp cstring
     {
         temp_cstring[j] = s[i];
         j++;
@@ -211,7 +213,7 @@ void append(charPointer &s1, const charPointer &s2)
     int len2 = cstrlen(s2);
     for (int i = 0; i < len2; i++)
     {
-        append(s1, s2[i]);
+        append(s1, s2[i]); // use Yonas's append function for every character
     }
 }
 
@@ -254,7 +256,7 @@ void removeCharAll(charPointer &s, const char &ch)
     int count = countChars(s, ch);
     for (int i = 0; i < count; i++)
     {
-        removeChar(s, ch);
+        removeChar(s, ch); // use Yonas's removeChar function
     }
 }
 
@@ -266,11 +268,11 @@ bool isEqual(const charPointer &s1, const charPointer &s2)
         and characters of s1 and s2 at corresponding indexes are the same.
     */
     int len1 = cstrlen(s1), len2 = cstrlen(s2);
-    if (len1 != len2)
+    if (len1 != len2) // if they are not the same length, they are not equal
         return false;
     for (int i = 0; i < len1; i++)
     {
-        if (s1[i] != s2[i])
+        if (s1[i] != s2[i]) // if the character at index i in s1 is not equal to the character at index i of s2, return false
             return false;
     }
     return true;
@@ -286,11 +288,11 @@ bool isAnagram(const charPointer &s1, const charPointer &s2)
     */
     int current_ch_index, len1 = cstrlen(s1), len2 = cstrlen(s2);
     char current_ch, current_ch_s2;
-    if (isEqual(s1, s2))
+    if (isEqual(s1, s2)) // edge case, if they are equal they are anagrams
     {
         return true;
     }
-    else if (len1 != len2)
+    else if (len1 != len2) // edge case, if they are not of the same length, they are not anagrams
     {
         return false;
     }
@@ -299,7 +301,7 @@ bool isAnagram(const charPointer &s1, const charPointer &s2)
         current_ch = s1[i];
         current_ch_index = findChar(s2, current_ch);
         current_ch_s2 = s2[current_ch_index];
-        if (countChars(s1, current_ch) != countChars(s2, current_ch_s2))
+        if (countChars(s1, current_ch) != countChars(s2, current_ch_s2)) // check if there's the same amount of the same character in both strings, if there not the same quantity return false
         {
             return false;
         }
@@ -328,7 +330,7 @@ charPointer zigzagMerge(const charPointer &s1, const charPointer &s2)
     int len3 = len1 + len2 + 1; // length of s1 + length of s2 + delimiter (1)
     charPointer zigzag_string = new char[len3];
     int i = 0, j = 0, k = 0;     // i = index of s1; j = index of s2; k = index of zigzag_string
-    while (i < len1 && j < len2) // append function defined by Yonas gave errors, using normal indexing
+    while (i < len1 && j < len2) // append function defined by Yonas gave errors like overflowing, using normal indexing
     {
         zigzag_string[k] = s1[i];
         i++;
@@ -373,15 +375,14 @@ charPointer getSubString(const charPointer &s, const int &startIndex, const int 
         substring_len = cstring_len - startIndex + 1; // + delimiter
         substring = new char[substring_len];
     }
-    else
+    else // create cstring of the len given
     {
         substring_len = len + 1; // + delimiter
         substring = new char[substring_len];
     }
-    for (int i = startIndex; j < substring_len - 1; i++)
+    for (int i = startIndex; j < substring_len - 1; i++) // copy values starting from startIndex, all the way to substring_len - 1, leave space for delimiter
     {
         substring[j] = s[i];
-        // cout << "Appending to substring: " << s[i] << endl;
         j++;
     }
     substring[j] = '\0';
